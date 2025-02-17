@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F47FBCA5-0211-4344-86EC-91DD51A27F0C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{507F3C93-16FB-44CC-ACE7-C0B63EBABB69}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.BotService.Core", "CRM.BotService.Core\CRM.BotService.Core.csproj", "{2274D0B6-E6FD-4CD8-B34D-8A12350B6B90}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.BotService.Endpoint", "CRM.BotService.Endpoint\CRM.BotService.Endpoint.csproj", "{8EC00146-1881-4B5E-A6E4-ADFE3C4DCC03}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.BotService.Core.Tests", "UnitTests\CRM.Letstalk.Core.Tests\CRM.BotService.Core.Tests.csproj", "{8C0D78F6-30E4-4365-B1B3-2807611CB0A3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.BotService.Endpoint.UnitTests", "CRM.BotService.Endpoint.UnitTests\CRM.BotService.Endpoint.UnitTests.csproj", "{791BCEBE-D579-4D32-9D60-EC5EA946C64A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2274D0B6-E6FD-4CD8-B34D-8A12350B6B90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2274D0B6-E6FD-4CD8-B34D-8A12350B6B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2274D0B6-E6FD-4CD8-B34D-8A12350B6B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2274D0B6-E6FD-4CD8-B34D-8A12350B6B90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EC00146-1881-4B5E-A6E4-ADFE3C4DCC03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EC00146-1881-4B5E-A6E4-ADFE3C4DCC03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EC00146-1881-4B5E-A6E4-ADFE3C4DCC03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EC00146-1881-4B5E-A6E4-ADFE3C4DCC03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C0D78F6-30E4-4365-B1B3-2807611CB0A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C0D78F6-30E4-4365-B1B3-2807611CB0A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C0D78F6-30E4-4365-B1B3-2807611CB0A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C0D78F6-30E4-4365-B1B3-2807611CB0A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{791BCEBE-D579-4D32-9D60-EC5EA946C64A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{791BCEBE-D579-4D32-9D60-EC5EA946C64A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{791BCEBE-D579-4D32-9D60-EC5EA946C64A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{791BCEBE-D579-4D32-9D60-EC5EA946C64A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2274D0B6-E6FD-4CD8-B34D-8A12350B6B90} = {507F3C93-16FB-44CC-ACE7-C0B63EBABB69}
+		{8EC00146-1881-4B5E-A6E4-ADFE3C4DCC03} = {507F3C93-16FB-44CC-ACE7-C0B63EBABB69}
+		{8C0D78F6-30E4-4365-B1B3-2807611CB0A3} = {F47FBCA5-0211-4344-86EC-91DD51A27F0C}
+		{791BCEBE-D579-4D32-9D60-EC5EA946C64A} = {F47FBCA5-0211-4344-86EC-91DD51A27F0C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47FA8ED1-7267-4EB4-8456-61EBE39BD840}
+	EndGlobalSection
+EndGlobal
