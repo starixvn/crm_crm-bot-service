@@ -12,19 +12,10 @@
         "IIS Express": {
             "commandName": "IISExpress",
             "launchBrowser": true,
-            "launchUrl": "api/values",
+            "launchUrl": "",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             }
-        },
-        "CRM.Letstalk.Webhook": {
-            "commandName": "Project",
-            "launchBrowser": true,
-            "launchUrl": "whoami",
-            "environmentVariables": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "applicationUrl": "https://localhost:5001;http://localhost:5000"
         },
         "Docker": {
             "commandName": "Docker",
