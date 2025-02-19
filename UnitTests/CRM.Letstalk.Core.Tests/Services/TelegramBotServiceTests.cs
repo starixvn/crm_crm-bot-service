@@ -1,6 +1,4 @@
-﻿using CRM.BotService.Core.Models.Base;
-
-namespace CRM.BotService.Core.Tests.Services
+﻿namespace CRM.BotService.Core.Tests.Services
 {
     using AutoFixture;
     using Constants;
@@ -8,6 +6,7 @@ namespace CRM.BotService.Core.Tests.Services
     using CRM.BotService.Core.Services;
     using CRM.BotService.Core.Services.Interfaces;
     using Models;
+    using Models.Base;
     using NSubstitute;
     using System.Collections.Generic;
     using System.Net;
@@ -22,10 +21,8 @@ namespace CRM.BotService.Core.Tests.Services
         private IList<TelegramBotConfigurations> botConfigurations;
         private ILogServiceExtend logService;
         private IBotCommonService botCommonService;
-
         private IHttpClientFactory httpClientFactory;
-
-        private IFixture fixture = new Fixture();
+        private readonly IFixture fixture = new Fixture();
 
         [Fact]
         public async Task SendTextMessageAsync_WhenCalled_ReturnsExactMessage()
