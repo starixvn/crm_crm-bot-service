@@ -1,6 +1,4 @@
-﻿using CRM.BotService.Core.Services;
-
-namespace CRM.BotService.Core.EventHandler
+﻿namespace CRM.BotService.Core.EventHandler
 {
     using Constants;
     using Criteria;
@@ -12,6 +10,7 @@ namespace CRM.BotService.Core.EventHandler
     using Models.Letstalk.BotConfig;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
+    using Services;
     using Services.Interfaces;
     using System;
     using System.Collections.Generic;

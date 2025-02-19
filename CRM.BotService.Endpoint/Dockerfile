@@ -7,6 +7,7 @@ RUN mkdir -p /src/packages
 FROM hub.nexdev.net/base/dotnet/core/sdk:9.0-alpine AS builder
 
 ENV NUGET_PACKAGES=/src/packages
+
 COPY --from=deps $NUGET_PACKAGES/. $NUGET_PACKAGES/
 
 WORKDIR /src
@@ -14,13 +15,10 @@ WORKDIR /src
 COPY ["nuget.config", "."]
 COPY ["CRM.BotService.Endpoint/CRM.BotService.Endpoint.csproj", "CRM.BotService.Endpoint/"]
 COPY ["CRM.BotService.Core/CRM.BotService.Core.csproj", "CRM.BotService.Core/"]
-COPY ["CRM.Core/CRM.Core.csproj", "CRM.Core/"]
-COPY ["CRM.Resources/CRM.Resources.csproj", "CRM.Resources/"]
-COPY ["CRM.Models/CRM.Models.csproj", "CRM.Models/"]
 
 RUN dotnet nuget add source https://nuget.nexdev.net/api/v2
 
-RUN dotnet restore -v n -r linux-x64 "CRM.BotService.Endpoint/CRM.BotService.Endpoint.csproj"
+RUN dotnet restore "CRM.BotService.Endpoint/CRM.BotService.Endpoint.csproj"
 
 COPY . .
 
