@@ -21,6 +21,7 @@ using System.Threading;
 
 namespace CRM.BotService.Endpoint;
 
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 public static class ServiceCollectionExtension
 {
     public static void RegisterServices(this IServiceCollection services)

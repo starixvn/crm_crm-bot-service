@@ -191,10 +191,10 @@ public class MessageController(
         try
         {
             logService.LogInformation(
-                $"Start SendNotifyAysnc: botId: {notification.BotId} chatId: {notification.ConversationId}.");
+                $"Start SendNotifyAsync: botId: {notification.BotId} chatId: {notification.ConversationId}.");
             await telegramBotService(notification.BotId).SendNotifyAsync(notification, result);
 
-            logService.LogInformation("end SendNotifyAysnc!!!");
+            logService.LogInformation("end SendNotifyAsync!!!");
         }
         catch (Exception ex)
         {

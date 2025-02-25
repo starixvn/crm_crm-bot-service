@@ -10,13 +10,16 @@ using CRM.BotService.Services.Interfaces;
 using Fanex.Caching;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using Xunit;
 
 namespace CRM.BotService.Endpoint.Tests.Telegram;
@@ -354,6 +357,112 @@ public class MessageControllerTests
         await logService.Received(1).ErrorAsync(Arg.Any<Exception>());
     }
 
+    [Fact]
+    public async Task VerifyUserOnGroupAsync_BotRemoved_ReturnsIsBotRemovedTrue()
+    {
+        // Arrange
+        var model = new VerifyUserOnGroupViewModel
+        {
+            BotId = 1,
+            ConversationGroupId = "12345",
+            BotAccountIds = ["67890"]
+        };
+        var controller = GetController();
+
+        telegramBotService(1).GetChatAsync(1, 12345).Returns((Chat)null);
+
+        // Act
+        var result = await controller.VerifyUserOnGroupAsync(model);
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.NotNull(okResult);
+        dynamic obj = JObject.Parse(Newtonsoft.Json.JsonConvert.SerializeObject(okResult.Value));
+        Assert.True(bool.Parse(obj["IsBotRemoved"].ToString()));
+    }
+
+    [Fact]
+    public async Task VerifyUserOnGroupAsync_BotNotRemoved_ReturnsGroupMembers()
+    {
+        // Arrange
+        var model = new VerifyUserOnGroupViewModel
+        {
+            BotId = 1,
+            ConversationGroupId = "12345",
+            BotAccountIds = ["67890", "54321"]
+        };
+        var controller = GetController();
+
+        var chat = new Chat();
+        var chatMember = new FakeChatMember();
+        telegramBotService(1).GetChatAsync(1, 12345).Returns(chat);
+        telegramBotService(1).GetChatMemberAsync(1, 12345, 67890).Returns(chatMember);
+        telegramBotService(1).GetChatMemberAsync(1, 12345, 54321).Returns(chatMember);
+
+        // Act
+        var result = await controller.VerifyUserOnGroupAsync(model);
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.NotNull(okResult);
+        dynamic obj = JObject.Parse(Newtonsoft.Json.JsonConvert.SerializeObject(okResult.Value));
+
+        Assert.False(bool.Parse(obj["IsBotRemoved"].ToString()));
+        Assert.Equal(2, obj["Telegrams"].Count);
+        Assert.True(bool.Parse(obj["Telegrams"][0]["IsGroupMember"].ToString()));
+        Assert.True(bool.Parse(obj["Telegrams"][1]["IsGroupMember"].ToString()));
+    }
+
+    [Fact]
+    public async Task VerifyUserOnGroupAsync_ExceptionThrownFromBot_ReturnsHandledException()
+    {
+        // Arrange
+        var model = new VerifyUserOnGroupViewModel
+        {
+            BotId = 1,
+            ConversationGroupId = "12345",
+            BotAccountIds = ["67890"]
+        };
+        var controller = GetController();
+        var exception = new Exception("bot was kicked from the supergroup chat");
+        telegramBotService(1).GetChatAsync(1, 12345).Throws(exception);
+
+        // Act
+        var result = await controller.VerifyUserOnGroupAsync(model);
+
+        // Assert
+        await logService.Received(1).ErrorAsync(exception);
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.NotNull(okResult.Value);
+        dynamic obj = JObject.Parse(Newtonsoft.Json.JsonConvert.SerializeObject(okResult.Value));
+
+        Assert.True(bool.Parse(obj["IsBotRemoved"].ToString()));
+        Assert.Empty(obj["Telegrams"]);
+    }
+
+    [Fact]
+    public async Task VerifyUserOnGroupAsync_ExceptionThrown_ReturnsHandledException()
+    {
+        // Arrange
+        var model = new VerifyUserOnGroupViewModel
+        {
+            BotId = 1,
+            ConversationGroupId = "12345",
+            BotAccountIds = ["67890"]
+        };
+        var controller = GetController();
+        var exception = new Exception("Test exception");
+        telegramBotService(1).GetChatAsync(1, 12345).Throws(exception);
+
+        // Act
+        var result = await controller.VerifyUserOnGroupAsync(model);
+
+        // Assert
+        await logService.Received(1).ErrorAsync(exception);
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Null(okResult.Value);
+    }
+
     #region helper
 
     private MessageController GetController()
@@ -370,6 +479,11 @@ public class MessageControllerTests
             configuration,
             cacheService
         );
+    }
+
+    private class FakeChatMember : ChatMember
+    {
+        public override ChatMemberStatus Status => ChatMemberStatus.Member;
     }
 
     #endregion helper

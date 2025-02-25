@@ -31,7 +31,7 @@ public class ErrorHandler(RequestDelegate next, ILogger logger)
         var method = context.Request.Method.ToLowerInvariant();
         var requestedWith = context.Request.Headers["X-Requested-With"];
 
-        if ((method == "post" || method == "put" || method == "delete") && requestedWith == "XMLHttpRequest")
+        if (method is "post" or "put" or "delete" && requestedWith == "XMLHttpRequest")
         {
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
         }

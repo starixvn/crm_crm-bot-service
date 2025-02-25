@@ -34,7 +34,7 @@ public class AuthController(WebSettings webSettings) : Controller
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);
             var token = tokenHandler.WriteToken(securityToken);
 
-            return Ok(new { AccessToken = token, ExpriedDate = expiredAt });
+            return Ok(new { AccessToken = token, ExpiredDate = expiredAt });
         }
 
         return Unauthorized();
