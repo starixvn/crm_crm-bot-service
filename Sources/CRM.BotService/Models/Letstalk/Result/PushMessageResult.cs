@@ -13,10 +13,3 @@ public class PushMessageResult : BaseResult
 
     public List<GlobalIdObject> GlobalIds { get; set; } = [];
 }
-
-public abstract class GlobalIdObject
-{
-    public string Receiver { get; set; }
-
-    public string GlobalId { get; set; }
-}

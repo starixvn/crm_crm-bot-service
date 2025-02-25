@@ -16,13 +16,17 @@ public class BaseService(IDynamicRepository dynamicRepository) : IBaseService
     {
         var commandResult = new CommandResult();
         if (command == null || !command.IsValid())
+        {
             return commandResult;
+        }
 
         await dynamicRepository.ExecuteAsync(command);
 
         var properties = command.ToPropertyDictionary();
         if (!properties.TryGetValue("ErrCode", out var property))
+        {
             return commandResult;
+        }
 
         commandResult.Code = int.Parse(property.ToString() ?? "1");
         commandResult.Message = properties["ErrMsg"] != null ? properties["ErrMsg"].ToString() : string.Empty;

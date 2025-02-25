@@ -28,7 +28,6 @@ public class UpdateController(
     {
         try
         {
-
             if (update is null || update.Type != UpdateType.Message)
             {
                 return Ok();
@@ -255,7 +254,7 @@ public class UpdateController(
             logService.LogInformation("start AddBotToPersonal: " + commandSerialize);
 
             var result = await baseService.ExecuteNonQueryAsync(command);
-            var greeting = string.Format(CommandMessageTelegram.Wellcome, bot.Username, message.Chat.Id);
+            var greeting = string.Format(CommandMessageTelegram.Welcome, bot.Username, message.Chat.Id);
             await telegramBotService(bot.Id).SendTextMessageAsync(bot.Id, message.Chat.Id, greeting);
             if (!result.IsSuccessful)
             {
