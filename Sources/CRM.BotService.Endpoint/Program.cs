@@ -31,6 +31,7 @@ services.RegisterServices();
 services.RegisterJwtConfiguration(configuration);
 services.ConfigRedisCache(configuration);
 services.RegisterBotServices(configuration);
+services.RegisterHttpProxyClient(configuration);
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

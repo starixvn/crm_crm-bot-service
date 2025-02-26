@@ -73,21 +73,23 @@ public static class ServiceCollectionExtension
         ResolveLetstalkServices(services, configuration);
     }
 
-    private static void ResolveLetstalkServices(this IServiceCollection services, IConfiguration configuration)
+    public static void RegisterHttpProxyClient(this IServiceCollection services, IConfiguration configuration)
     {
-        var botConfigs = configuration.GetSection("LetstalkBotConfigurations").Get<List<LetstalkBotConfig>>();
-        var botChannelInfo = configuration.GetSection("BotChannelInfo").Get<List<BotChannelInfo>>();
         var httpClientSettings = configuration.GetSection("HttpClientSetting").Get<HttpClientSetting>();
-
-        services.AddSingleton(httpClientSettings);
-        services.AddSingleton(botConfigs);
-        services.AddSingleton(botChannelInfo);
-
         services.AddHttpClient(NamedHttpClients.ProxiedClient).ConfigurePrimaryHttpMessageHandler(() => new SocketsHttpHandler
         {
             UseProxy = httpClientSettings.IsUseProxy,
             Proxy = new WebProxy(httpClientSettings.ProxyAddress, httpClientSettings.BypassOnLocal)
         });
+    }
+
+    private static void ResolveLetstalkServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        var botConfigs = configuration.GetSection("LetstalkBotConfigurations").Get<List<LetstalkBotConfig>>();
+        var botChannelInfo = configuration.GetSection("BotChannelInfo").Get<List<BotChannelInfo>>();
+
+        services.AddSingleton(botConfigs);
+        services.AddSingleton(botChannelInfo);
 
         services.AddSingleton<Func<long, ILetstalkClientService>>(serviceProvider => botId =>
         {
@@ -109,15 +111,6 @@ public static class ServiceCollectionExtension
 
         var telegramBots = configuration.GetSection("TelegramBotConfigurations").Get<List<TelegramBotConfigurations>>();
         services.AddSingleton(telegramBots);
-
-        var httpClientSettings = configuration.GetSection("HttpClientSetting").Get<HttpClientSetting>();
-        services.AddSingleton(httpClientSettings);
-
-        services.AddHttpClient(NamedHttpClients.ProxiedClient).ConfigurePrimaryHttpMessageHandler(() => new SocketsHttpHandler
-        {
-            UseProxy = httpClientSettings.IsUseProxy,
-            Proxy = new WebProxy(httpClientSettings.ProxyAddress, httpClientSettings.BypassOnLocal)
-        });
 
         services.AddSingleton<Func<long, ITelegramBotService>>(serviceProvider => botId =>
         {

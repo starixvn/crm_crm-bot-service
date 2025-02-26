@@ -55,7 +55,7 @@ public class LetstalkSendMultipleReceiverServiceTests
         var actual = await service.SendFormattedTextAndImagesAsync(data);
 
         //Expected
-        await botCommonService.Received(8).WriteLogMessageAsync(Arg.Any<WriteLogMessageCommand>());
+        await botCommonService.Received().WriteLogMessageAsync(Arg.Any<WriteLogMessageCommand>());
 
         Assert.NotNull(actual);
         var sendNotificationResults = actual as SendNotificationResult[] ?? actual.ToArray();

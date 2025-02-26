@@ -61,6 +61,7 @@ namespace CRM.BotService.Tests.Services
             // Assert
             await dynamicRepository.Received(1).ExecuteAsync(command);
             Assert.NotNull(result);
+            Assert.NotEmpty(command.GetSettingKey());
             Assert.Equal(command.ErrCode, result.Code);
             Assert.Equal(command.ErrMsg, result.Message);
         }
