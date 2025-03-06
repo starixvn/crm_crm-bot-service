@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{1EE945E9-30E3-4425-B972-B481FCDCA906}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{4158E226-980E-4F55-A535-4D1F702A94C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.BotService", "Sources\CRM.BotService\CRM.BotService.csproj", "{0DCF6A68-3ED5-495C-8CDB-E05EE2DE8A37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.BotService.Endpoint", "Sources\CRM.BotService.Endpoint\CRM.BotService.Endpoint.csproj", "{59FC0CDC-544A-47D0-BCFD-6EB471E88F7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.BotService.Tests", "UnitTests\CRM.BotService.Tests\CRM.BotService.Tests.csproj", "{F3C5235E-E584-4BBC-B322-8DC56DD21702}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.BotService.Endpoint.Tests", "UnitTests\CRM.BotService.Endpoint.UnitTests\CRM.BotService.Endpoint.Tests.csproj", "{D5555EB6-CF56-4C8D-9F62-DBAA6D7DF324}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0DCF6A68-3ED5-495C-8CDB-E05EE2DE8A37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DCF6A68-3ED5-495C-8CDB-E05EE2DE8A37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DCF6A68-3ED5-495C-8CDB-E05EE2DE8A37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DCF6A68-3ED5-495C-8CDB-E05EE2DE8A37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59FC0CDC-544A-47D0-BCFD-6EB471E88F7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59FC0CDC-544A-47D0-BCFD-6EB471E88F7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59FC0CDC-544A-47D0-BCFD-6EB471E88F7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59FC0CDC-544A-47D0-BCFD-6EB471E88F7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3C5235E-E584-4BBC-B322-8DC56DD21702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3C5235E-E584-4BBC-B322-8DC56DD21702}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3C5235E-E584-4BBC-B322-8DC56DD21702}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3C5235E-E584-4BBC-B322-8DC56DD21702}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5555EB6-CF56-4C8D-9F62-DBAA6D7DF324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5555EB6-CF56-4C8D-9F62-DBAA6D7DF324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5555EB6-CF56-4C8D-9F62-DBAA6D7DF324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5555EB6-CF56-4C8D-9F62-DBAA6D7DF324}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0DCF6A68-3ED5-495C-8CDB-E05EE2DE8A37} = {1EE945E9-30E3-4425-B972-B481FCDCA906}
+		{59FC0CDC-544A-47D0-BCFD-6EB471E88F7A} = {1EE945E9-30E3-4425-B972-B481FCDCA906}
+		{F3C5235E-E584-4BBC-B322-8DC56DD21702} = {4158E226-980E-4F55-A535-4D1F702A94C3}
+		{D5555EB6-CF56-4C8D-9F62-DBAA6D7DF324} = {4158E226-980E-4F55-A535-4D1F702A94C3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47FA8ED1-7267-4EB4-8456-61EBE39BD840}
+	EndGlobalSection
+EndGlobal
