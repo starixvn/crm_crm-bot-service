@@ -1,6 +1,6 @@
 ﻿using CRM.BotService.Endpoint;
 using Fanex.Data;
-using Fanex.Logging.Sentry;
+using Fanex.Logging.Sentry.RavenClient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
