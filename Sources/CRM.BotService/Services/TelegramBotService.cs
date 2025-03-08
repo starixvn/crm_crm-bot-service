@@ -45,26 +45,26 @@ public class TelegramBotService : ITelegramBotService
     {
         ValidateInputParam(nameof(bot.Domain), bot.Domain);
         var webhook = $"{bot.Domain}api/telegram/webhook/{bot.BotId}/update";
-        await bot.BotClient.DeleteWebhook();
-        await bot.BotClient.SetWebhook(webhook);
+        await bot.BotClient.DeleteWebhookAsync();
+        await bot.BotClient.SetWebhookAsync(webhook);
     }
 
     public async Task<User> GetBotInfoAsync(long botId)
     {
         var bot = botConfigurations.First(x => x.BotId == botId);
-        return await bot.BotClient.GetMe();
+        return await bot.BotClient.GetMeAsync();
     }
 
     public async Task<WebhookInfo> GetWebhookInfoAsync(TelegramBotConfigurations bot)
     {
         logService.LogInformation("Start GetWebhookInfoAsync: " + bot.BotId);
-        return await bot.BotClient.GetWebhookInfo();
+        return await bot.BotClient.GetWebhookInfoAsync();
     }
 
     public async Task<Chat> GetChatAsync(long botId, long chatId)
     {
         var bot = botConfigurations.First(x => x.BotId == botId);
-        var chat = await bot.BotClient.GetChat(new(chatId));
+        var chat = await bot.BotClient.GetChatAsync(new(chatId));
         return chat;
     }
 
@@ -73,7 +73,7 @@ public class TelegramBotService : ITelegramBotService
         try
         {
             var bot = botConfigurations.First(x => x.BotId == botId);
-            var chatMember = await bot.BotClient.GetChatMember(new(chatGroupId), chatMemberId);
+            var chatMember = await bot.BotClient.GetChatMemberAsync(new(chatGroupId), chatMemberId);
             return chatMember;
         }
         catch (Exception)
@@ -115,7 +115,7 @@ public class TelegramBotService : ITelegramBotService
         var messageContentReplace = RemoveUnsupportedTags(messageContent);
 
         ValidateInputParam(nameof(messageContent), messageContentReplace);
-        var message = await bot.BotClient.SendMessage(new(chatId), messageContentReplace, parseMode: parseMode);
+        var message = await bot.BotClient.SendTextMessageAsync(new(chatId), messageContentReplace, parseMode: parseMode);
         return message;
     }
 
@@ -123,8 +123,8 @@ public class TelegramBotService : ITelegramBotService
     {
         var bot = botConfigurations.First(x => x.BotId == botId);
 
-        var photo = new InputFileUrl(urlImage);
-        var message = await bot.BotClient.SendPhoto(
+        var photo = new Telegram.Bot.Types.InputFiles.InputOnlineFile(urlImage);
+        var message = await bot.BotClient.SendPhotoAsync(
             chatId: chatId,
             photo: photo);
         return message;
@@ -134,8 +134,8 @@ public class TelegramBotService : ITelegramBotService
     {
         var bot = botConfigurations.First(x => x.BotId == botId);
 
-        var photo = new InputFileStream(stream);
-        var message = await bot.BotClient.SendPhoto(
+        var photo = new Telegram.Bot.Types.InputFiles.InputOnlineFile(stream);
+        var message = await bot.BotClient.SendPhotoAsync(
             chatId: chatId,
             photo: photo);
         return message;

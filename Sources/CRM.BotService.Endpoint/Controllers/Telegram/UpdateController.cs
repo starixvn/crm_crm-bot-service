@@ -56,15 +56,15 @@ public class UpdateController(
                 await HandleBotCommandAsync(bot, message);
                 break;
 
-            case MessageType.ForumTopicEdited:
+            case MessageType.ChatTitleChanged:
                 await EditChatTitledAsync(message);
                 break;
 
-            case MessageType.ForumTopicCreated:
+            case MessageType.GroupCreated:
                 await AddBotToGroupAsync(message, bot);
                 break;
 
-            case MessageType.NewChatMembers:
+            case MessageType.ChatMembersAdded:
                 if (message.NewChatMembers != null)
                 {
                     var bots = message.NewChatMembers.Where(x => x.IsBot).ToArray();
@@ -76,11 +76,11 @@ public class UpdateController(
 
                 break;
 
-            case MessageType.LeftChatMember:
+            case MessageType.ChatMemberLeft:
                 await RemoveBotToGroupAsync(message);
                 break;
 
-            case MessageType.SupergroupChatCreated:
+            case MessageType.MigratedToSupergroup:
                 await MigratedToSupergroupAsync(message);
                 break;
 
