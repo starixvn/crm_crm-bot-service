@@ -1,21 +1,29 @@
-﻿using CRM.BotService.Endpoint.Controllers.Telegram;
+﻿using Chat = Telegram.Bot.Types.Chat;
+using ChatType = Telegram.Bot.Types.Enums.ChatType;
+using Message = Telegram.Bot.Types.Message;
+using MessageEntity = Telegram.Bot.Types.MessageEntity;
+using MessageEntityType = Telegram.Bot.Types.Enums.MessageEntityType;
+using Update = Telegram.Bot.Types.Update;
+using User = Telegram.Bot.Types.User;
+
+namespace CRM.BotService.Endpoint.Tests.Telegram;
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using CRM.BotService.Criteria;
+using CRM.BotService.Endpoint.Controllers.Telegram;
 using CRM.BotService.Models;
 using CRM.BotService.Services;
 using CRM.BotService.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
 using Xunit;
-
-namespace CRM.BotService.Endpoint.Tests.Telegram;
 
 public class UpdateControllerTests
 {
     private readonly ILogServiceExtend logService;
+    private readonly IBaseService baseService;
     private readonly Func<long, ITelegramBotService> telegramBotServiceFactory;
     private readonly UpdateController updateController;
 
@@ -23,7 +31,7 @@ public class UpdateControllerTests
     {
         logService = Substitute.For<ILogServiceExtend>();
         telegramBotServiceFactory = Substitute.For<Func<long, ITelegramBotService>>();
-        var baseService = Substitute.For<IBaseService>();
+        baseService = Substitute.For<IBaseService>();
         List<TelegramBotConfigurations> botConfigurations = [new() { BotId = 1, Token = "token", Domain = "domain" }];
         updateController = new UpdateController(logService, telegramBotServiceFactory, baseService, botConfigurations);
     }
@@ -32,7 +40,7 @@ public class UpdateControllerTests
     public async Task Post_UpdateParamIsNull_DoNothing()
     {
         // Arrange
-        var update = new Update { Message = new Message { Chat = new() } };
+        var update = new Update { Message = new Message { Chat = new Chat() } };
 
         // Act
         var result = await updateController.Post(1, update);
@@ -118,7 +126,7 @@ public class UpdateControllerTests
         };
         var bot = new User { Id = 1, Username = "bot" };
         telegramBotServiceFactory(Arg.Any<long>()).GetBotInfoAsync(1).Returns(bot);
-
+        baseService.ExecuteNonQueryAsync(Arg.Any<AddBotToGroupCommand>()).Returns(new CommandResult { Code = 0 });
         // Act
         var result = await updateController.Post(1, update);
 
